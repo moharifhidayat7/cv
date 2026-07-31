@@ -1,0 +1,250 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Outer viewer (no background) ── */
+.pdf-viewer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 1rem 4rem;
+  gap: 1rem;
+}
+
+/* ── Simulated PDF toolbar ── */
+.pdf-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 210mm;
+  padding: 0.45rem 1rem;
+  background: #3c3c3c;
+  color: #e8e8e8;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.8rem;
+  border-radius: 0 0 4px 4px;
+}
+
+.pdf-toolbar__zoom {
+  margin-right: auto;
+}
+
+.pdf-toolbar button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #e8e8e8;
+  padding: 0.2rem 0.75rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.pdf-toolbar button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── A4 white page ── */
+.page {
+  width: 210mm;
+  height: 297mm;
+  padding: 15mm 20mm;
+  background: #fff;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 6px 24px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+/* ────────────────────────────────────────────
+   Content — classless, scoped to .page
+   ──────────────────────────────────────────── */
+
+.page {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 10pt;
+  line-height: 1.35;
+  color: #111;
+}
+
+/* Top-level CV header */
+.page article > header {
+  text-align: center;
+  padding-bottom: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+.page article > header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 0.15rem;
+}
+
+.page address {
+  font-style: normal;
+  font-size: 0.85rem;
+  color: #444;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.6rem;
+}
+
+.page address > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.6rem;
+  width: 100%;
+}
+
+
+
+.page address a {
+  color: #1a6bc4;
+  text-decoration: none;
+}
+
+.page address a:hover {
+  text-decoration: underline;
+}
+
+/* Sections */
+.page section {
+  margin-top: 1rem;
+}
+
+.page section h2 {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #666;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.15rem;
+  margin-bottom: 0.35rem;
+  text-align: center;
+}
+
+.page section > p {
+  line-height: 1.45;
+  font-size: 0.88rem;
+}
+
+/* Experience / Education articles */
+.page section article {
+  margin-top: 0.5rem;
+}
+
+.page section article:first-of-type {
+  margin-top: 0;
+}
+
+/* Job/school header: company on row 1, date+role on row 2 */
+.page section article header {
+  text-align: left;
+}
+
+.page section article header h3 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.05rem;
+}
+
+.page section article header time {
+  font-size: 0.8rem;
+  color: #555;
+  white-space: nowrap;
+  font-style: normal;
+}
+
+.page section article header p {
+  font-size: 0.8rem;
+  color: #444;
+  font-style: italic;
+}
+
+/* Experience description bullets */
+.page section article ul {
+  margin: 0.2rem 0 0 0;
+  padding-left: 1.2rem;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  color: #222;
+}
+
+.page section article ul li {
+  margin-bottom: 0.05rem;
+}
+
+/* ── Responsive: narrow screens ── */
+@media (max-width: 230mm) {
+  .pdf-viewer {
+    padding: 0;
+    gap: 0;
+  }
+
+  .pdf-toolbar {
+    border-radius: 0;
+    max-width: 100%;
+  }
+
+  .page {
+    width: 100%;
+    height: auto;
+    padding: 8mm 6mm;
+    box-shadow: none;
+    overflow: visible;
+  }
+}
+
+/* ── Print ── */
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm 20mm;
+  }
+
+  .pdf-viewer {
+    display: contents;
+  }
+
+  .pdf-toolbar {
+    display: none;
+  }
+
+  .page {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    box-shadow: none;
+    overflow: visible;
+    font-size: 9.5pt;
+    line-height: 1.35;
+  }
+
+  .page section {
+    margin-top: 0.75rem;
+  }
+
+  .page section h2 {
+    margin-bottom: 0.3rem;
+  }
+
+  .page section article {
+    margin-top: 0.4rem;
+  }
+
+  .page article > header {
+    margin-bottom: 0.4rem;
+  }
+}
